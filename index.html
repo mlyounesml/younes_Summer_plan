@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة صيف يونس 2026 | التخصيص الكامل والالتزام</title>
+    <title>لوحة صيف يونس 2026 | النسخة الاحترافية والمخصصة بالذكاء الاصطناعي</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Cairo Arabic Font -->
@@ -39,12 +39,25 @@
             background: rgba(15, 23, 42, 0.45);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px stroke rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
         /* Selected Day Neon Border Glow */
         .selected-glow {
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
             border-color: #3b82f6 !important;
+        }
+        /* Premium Glow Effect for 100% completed day */
+        .completed-glow {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+            border-color: rgba(16, 185, 129, 0.6) !important;
+        }
+        /* Message Animation */
+        .msg-appear {
+            animation: slideUp 0.3s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -52,23 +65,35 @@
 
     <!-- Beautiful Header -->
     <header class="border-b border-slate-900 bg-[#070a13]/80 backdrop-blur-lg sticky top-0 z-40 transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-4">
-                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/15">
-                    <i class="fa-solid fa-compass text-xl animate-pulse"></i>
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 text-center md:text-right flex-col md:flex-row w-full md:w-auto">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/15">
+                        <i class="fa-solid fa-brain text-xl animate-pulse text-cyan-300"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg md:text-xl font-extrabold bg-gradient-to-r from-blue-400 via-indigo-300 to-teal-400 bg-clip-text text-transparent">صيف يونس الذكي المبرمج 2026 👑</h1>
+                        <p class="text-xs text-slate-400">تحكّم في جدولك، تدرّب على التنس، احفظ قرآنك، واستعن بذكاء مبرمجك الخاص لجدولة يومك وتحفيزك!</p>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="text-lg md:text-xl font-extrabold bg-gradient-to-r from-blue-400 via-indigo-300 to-teal-400 bg-clip-text text-transparent">صيف يونس المبرمج 2026 👑</h1>
-                    <p class="text-xs text-slate-400">نظّم صلاتك، تمرين التنس، الإنجليزي، ولعبك الممتع بكل سهولة وبساطة</p>
+                
+                <!-- Collapsible AI API Key Settings -->
+                <div class="flex items-center gap-2">
+                    <div class="glass-card border border-slate-800/80 rounded-xl px-3 py-1.5 flex items-center gap-2 text-xs">
+                        <i class="fa-solid fa-key text-yellow-500"></i>
+                        <input type="password" id="custom-api-key" placeholder="مفتاح Gemini API الخاص بك" class="bg-transparent border-none text-slate-200 focus:outline-none text-[11px] w-40" onchange="saveApiKey(this.value)">
+                        <span class="text-slate-600">|</span>
+                        <span class="text-slate-400 font-bold" title="يتم استخدام مفتاح مدمج مسبقاً إذا كنت تتصفح داخل المنصة">تلقائي ⚡</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Stats Dashboard Banner -->
-            <div class="flex items-center gap-3">
+            <!-- Stats Dashboard Banner - Grid format that works flawlessly on mobile -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 w-full">
                 <!-- Streak Stat Card -->
-                <div class="glass-card border border-slate-800/80 px-4 py-1.5 rounded-2xl flex items-center gap-3">
+                <div class="glass-card border border-slate-800/80 px-3 py-2 rounded-2xl flex items-center gap-3">
                     <div class="w-8 h-8 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500 text-sm">
-                        <i class="fa-solid fa-fire"></i>
+                        <i class="fa-solid fa-fire animate-bounce"></i>
                     </div>
                     <div>
                         <div class="text-[10px] text-slate-400 leading-none">سلسلة الصلاة 🔥</div>
@@ -77,13 +102,35 @@
                 </div>
 
                 <!-- Progress Stat Card -->
-                <div class="glass-card border border-slate-800/80 px-4 py-1.5 rounded-2xl flex items-center gap-3">
+                <div class="glass-card border border-slate-800/80 px-3 py-2 rounded-2xl flex items-center gap-3">
                     <div class="w-8 h-8 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-sm">
                         <i class="fa-solid fa-trophy"></i>
                     </div>
                     <div>
                         <div class="text-[10px] text-slate-400 leading-none">معدل الالتزام</div>
                         <div id="total-progress-bar" class="text-xs font-black text-blue-400 mt-1">0%</div>
+                    </div>
+                </div>
+
+                <!-- Coding Hours Card -->
+                <div class="glass-card border border-slate-800/80 px-3 py-2 rounded-2xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-400 text-sm">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-slate-400 leading-none">ساعات البرمجة 💻</div>
+                        <div id="dev-hours-counter" class="text-xs font-black text-violet-400 mt-1">0 ساعة</div>
+                    </div>
+                </div>
+
+                <!-- Quran Hours Card -->
+                <div class="glass-card border border-slate-800/80 px-3 py-2 rounded-2xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-sm">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-slate-400 leading-none">ساعات القرآن 📖</div>
+                        <div id="quran-hours-counter" class="text-xs font-black text-emerald-400 mt-1">0 ساعة</div>
                     </div>
                 </div>
             </div>
@@ -97,17 +144,28 @@
             <!-- RIGHT SIDE (On Mobile: Top): Month & Calendar Grid -->
             <div class="lg:col-span-5 flex flex-col gap-4">
                 
-                <!-- Simple Clean Month Controller Card -->
+                <!-- Simple Clean Month Controller Card with Export/Import Backup feature -->
                 <div class="glass-card border border-slate-800/60 rounded-3xl p-4 flex flex-col gap-3.5">
-                    <div class="flex items-center justify-between">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <h2 class="text-sm font-bold text-slate-300 flex items-center gap-2">
                             <i class="fa-solid fa-calendar text-indigo-400"></i>
                             اختر يومك من صيف 2026:
                         </h2>
-                        <!-- Simple Reset Trigger -->
-                        <button onclick="openConfirmModal('reset-all')" class="text-xs text-rose-400/80 hover:text-rose-400 transition-all flex items-center gap-1">
-                            <i class="fa-solid fa-arrows-rotate text-[10px]"></i> تصفير البيانات
-                        </button>
+                        
+                        <!-- Backup & Reset actions block -->
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <button onclick="exportBackupData()" class="text-xs text-blue-400 hover:text-blue-300 transition-all flex items-center gap-1" title="تنزيل نسخة من إنجازاتك في ملف خارجي">
+                                <i class="fa-solid fa-download text-[10px]"></i> حفظ نسخة
+                            </button>
+                            <button onclick="triggerImportInput()" class="text-xs text-emerald-400 hover:text-emerald-300 transition-all flex items-center gap-1" title="استعادة إنجازاتك من ملف خارجي">
+                                <i class="fa-solid fa-upload text-[10px]"></i> استعادة
+                            </button>
+                            <input type="file" id="import-file" class="hidden" accept=".json" onchange="importBackupData(event)">
+                            <span class="text-slate-800 text-xs hidden sm:inline">|</span>
+                            <button onclick="openConfirmModal('reset-all')" class="text-xs text-rose-400/80 hover:text-rose-400 transition-all flex items-center gap-1">
+                                <i class="fa-solid fa-arrows-rotate text-[10px]"></i> تصفير البيانات
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Beautiful Tabbed Month Selectors -->
@@ -146,11 +204,11 @@
             <div class="lg:col-span-7">
                 
                 <!-- Beautiful Details / Editor Panel with Dynamic Mode switcher -->
-                <div id="day-detail-panel" class="glass-card border border-slate-800/80 rounded-3xl p-5 sm:p-6 shadow-xl transition-all duration-300 min-h-[450px]">
-                    <!-- Dynamic details/editor will be rendered here -->
+                <div id="day-detail-panel" class="glass-card border border-slate-800/80 rounded-3xl p-5 sm:p-6 shadow-xl transition-all duration-300 min-h-[450px] flex flex-col gap-4 relative overflow-hidden">
+                    <!-- Dynamic details/editor/AI portal will be rendered here -->
                     <div class="text-center py-20 text-slate-400 flex flex-col items-center justify-center gap-4">
                         <i class="fa-solid fa-wand-magic-sparkles animate-pulse text-4xl text-indigo-500"></i>
-                        <p class="text-sm">يتم تحضير لوحة التحكم المذهلة الخاصة بك...</p>
+                        <p class="text-sm">يتم تحضير لوحة التحكم المذهلة والمدعومة بالذكاء الاصطناعي...</p>
                     </div>
                 </div>
 
@@ -198,12 +256,14 @@
 
         const DAYS_OF_WEEK_AR = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
 
-        // Iconic Options for easy task customization - visual and quick
+        // Icon options preset list with beautiful colors
         const ICON_OPTIONS = [
             { class: "fa-mosque", name: "🕌 صلاة", color: "text-amber-400", bg: "bg-amber-400/10" },
+            { class: "fa-book-open", name: "📖 قرآن", color: "text-emerald-400", bg: "bg-emerald-400/10" },
             { class: "fa-baseball", name: "🎾 تنس", color: "text-lime-400", bg: "bg-lime-400/10" },
             { class: "fa-language", name: "🇬🇧 إنجليزي", color: "text-blue-400", bg: "bg-blue-400/10" },
             { class: "fa-code", name: "💻 برمجة", color: "text-violet-400", bg: "bg-violet-400/10" },
+            { class: "fa-dumbbell", name: "💪 تمرين", color: "text-rose-400", bg: "bg-rose-400/10" },
             { class: "fa-gamepad", name: "🎮 ألعاب", color: "text-cyan-400", bg: "bg-cyan-400/10" },
             { class: "fa-utensils", name: "🍳 طعام", color: "text-orange-400", bg: "bg-orange-400/10" },
             { class: "fa-bed", name: "😴 نوم", color: "text-indigo-400", bg: "bg-indigo-400/10" },
@@ -214,12 +274,19 @@
         let allDays = [];
         let selectedDayId = null;
         let selectedMonth = 4; // Default starts at May/June 31
-        let isEditingMode = false;
+        let currentTab = 'schedule'; // 'schedule', 'editor', 'ai'
+
+        // New draft holder for AI generated schedules (Bug Fix #1)
+        let aiDraftSchedule = null;
+        
+        // Chat histories by day to provide conversational context memory
+        let chatHistories = {};
 
         // Custom storage states
         let userProgress = {}; // Completed tasks list
         let customSchedules = {}; // Dynamic schedule edits
         let currentModalAction = null;
+        let apiKey = localStorage.getItem('yonis_gemini_api_key') || "";
 
         // Load data from LocalStorage smoothly
         function loadFromLocalStorage() {
@@ -231,6 +298,11 @@
             if (savedSchedules) {
                 try { customSchedules = JSON.parse(savedSchedules); } catch(e) { customSchedules = {}; }
             }
+            const savedKey = localStorage.getItem('yonis_gemini_api_key');
+            if (savedKey) {
+                apiKey = savedKey;
+                document.getElementById('custom-api-key').value = apiKey;
+            }
         }
 
         // Save progress & schedules safely to LocalStorage
@@ -238,39 +310,50 @@
             localStorage.setItem('yonis_summer_2026_progress', JSON.stringify(userProgress));
             localStorage.setItem('yonis_summer_2026_schedules', JSON.stringify(customSchedules));
             updateOverallStats();
+            renderDaysGrid(); // Instantly update the 100% completed day green glow on the calendar grid!
         }
 
-        // Default schedules generator
+        function saveApiKey(val) {
+            apiKey = val;
+            localStorage.setItem('yonis_gemini_api_key', val);
+            triggerToastEffect("تم حفظ مفتاح API بنجاح! 🔑");
+        }
+
+        // Cleaned up Maghrib and aligned Fajr / Quran times dynamically with duration configuration
         function getDefaultScheduleForDay(dayOfWeek) {
             // Sunday (0), Tuesday (2), Thursday (4) are Tennis Days
             if (dayOfWeek === 0 || dayOfWeek === 2 || dayOfWeek === 4) {
                 return [
-                    { id: "fajr", time: "03:30 ص", title: "صلاة الفجر وقراءة أذكارك 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10" },
-                    { id: "wakeup", time: "12:00 م", title: "الاستيقاظ وتناول فطور خفيف وصحي 🍳", isTask: false, icon: "fa-utensils", color: "text-orange-400", bg: "bg-orange-400/10" },
-                    { id: "english", time: "12:30 م", title: "وقت الإنجليزي (تطبيق Duolingo وفيديو قصير) 🇬🇧", isTask: true, icon: "fa-language", color: "text-blue-400", bg: "bg-blue-400/10" },
-                    { id: "dhuhr", time: "01:00 م", title: "صلاة الظهر جماعة 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10" },
-                    { id: "dev_session", time: "01:15 م", title: "تطوير وبرمجة ألعابك على اللاب توب 💻", isTask: true, icon: "fa-code", color: "text-violet-400", bg: "bg-violet-400/10" },
-                    { id: "asr", time: "03:30 م", title: "صلاة العصر 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10" },
-                    { id: "lunch", time: "03:45 م", title: "وجبة الغداء ومساعدة يس ويحيى والتسلية 🍔", isTask: false, icon: "fa-utensils", color: "text-orange-400", bg: "bg-orange-400/10" },
-                    { id: "tennis_practice", time: "05:30 م", title: "الذهاب إلى تمرين التنس والتدرب بقوة 🎾", isTask: true, icon: "fa-baseball", color: "text-lime-400", bg: "bg-lime-400/10" },
-                    { id: "maghrib", time: "08:00 م", title: "صلاة المغرب (فور العودة أو في النادي) 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10" },
-                    { id: "isha", time: "08:30 م", title: "صلاة العشاء 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10" },
-                    { id: "night", time: "09:00 م", title: "سهرة الصيف الممتعة ومشاهدة أفلام عائلية 🎬", isTask: false, icon: "fa-gamepad", color: "text-cyan-400", bg: "bg-cyan-400/10" }
+                    { id: "fajr", time: "04:00 ص", title: "صلاة الفجر وقراءة أذكارك 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10", duration: 0.5 },
+                    { id: "quran_memorize", time: "04:30 ص", title: "جلسة حفظ وتلاوة القرآن الكريم 📖", isTask: true, icon: "fa-book-open", color: "text-emerald-400", bg: "bg-emerald-400/10", duration: 1.0 },
+                    { id: "wakeup", time: "12:00 م", title: "الاستيقاظ وتناول فطور خفيف وصحي 🍳", isTask: false, icon: "fa-utensils", color: "text-orange-400", bg: "bg-orange-400/10", duration: 0.5 },
+                    { id: "english", time: "12:30 م", title: "وقت الإنجليزي (تطبيق Duolingo وفيديو قصير) 🇬🇧", isTask: true, icon: "fa-language", color: "text-blue-400", bg: "bg-blue-400/10", duration: 0.5 },
+                    { id: "dhuhr", time: "01:00 م", title: "صلاة الظهر جماعة 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10", duration: 0.25 },
+                    { id: "dev_session", time: "01:15 م", title: "تطوير وبرمجة ألعابك على اللاب توب 💻", isTask: true, icon: "fa-code", color: "text-violet-400", bg: "bg-violet-400/10", duration: 2.25 },
+                    { id: "asr", time: "03:30 م", title: "صلاة العصر 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10", duration: 0.25 },
+                    { id: "lunch", time: "03:45 م", title: "وجبة الغداء ومساعدة يس ويحيى والتسلية 🍔", isTask: false, icon: "fa-utensils", color: "text-orange-400", bg: "bg-orange-400/10", duration: 0.75 },
+                    { id: "quran_review", time: "04:30 م", title: "مراجعة ورد القرآن الكريم اليومي 📖", isTask: true, icon: "fa-book-open", color: "text-emerald-400", bg: "bg-emerald-400/10", duration: 1.0 },
+                    { id: "tennis_practice", time: "05:30 م", title: "الذهاب إلى تمرين التنس والتدرب بقوة 🎾", isTask: true, icon: "fa-baseball", color: "text-lime-400", bg: "bg-lime-400/10", duration: 2.5 },
+                    { id: "maghrib", time: "08:00 م", title: "صلاة المغرب (فور العودة أو في النادي) 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10", duration: 0.25 },
+                    { id: "isha", time: "08:30 م", title: "صلاة العشاء 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10", duration: 0.25 },
+                    { id: "night", time: "09:00 م", title: "سهرة الصيف الممتعة ومشاهدة أفلام عائلية 🎬", isTask: false, icon: "fa-gamepad", color: "text-cyan-400", bg: "bg-cyan-400/10", duration: 4.0 }
                 ];
             } else {
                 // Saturday, Monday, Wednesday, Friday are Development & Free Days
                 return [
-                    { id: "fajr", time: "03:30 ص", title: "صلاة الفجر وقراءة أذكارك 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10" },
-                    { id: "wakeup", time: "12:00 م", title: "الاستيقاظ وبداية يوم جديد سعيد 🍳", isTask: false, icon: "fa-bed", color: "text-indigo-400", bg: "bg-indigo-400/10" },
-                    { id: "english", time: "12:30 م", title: "وقت الإنجليزي (قراءة قصة / ممارسة لغوية) 🇬🇧", isTask: true, icon: "fa-language", color: "text-blue-400", bg: "bg-blue-400/10" },
-                    { id: "dhuhr", time: "01:00 م", title: "صلاة الظهر 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10" },
-                    { id: "dev_session", time: "01:15 م", title: "جلسة برمجة (تصميم شخصيات Steel Pulse) 💻", isTask: true, icon: "fa-code", color: "text-violet-400", bg: "bg-violet-400/10" },
-                    { id: "asr", time: "03:30 م", title: "صلاة العصر 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10" },
-                    { id: "gaming", time: "03:45 م", title: "غداء ولعب ألعاب أصلية بدون محاكي مع الأصدقاء 🎮", isTask: false, icon: "fa-gamepad", color: "text-cyan-400", bg: "bg-cyan-400/10" },
-                    { id: "outing_free", time: "06:00 م", title: "خروج خفيف مع الأصحاب أو جلسة رسم وقراءة 🎨", isTask: false, icon: "fa-star", color: "text-yellow-400", bg: "bg-yellow-400/10" },
-                    { id: "maghrib", time: "07:00 م", title: "صلاة المغرب 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10" },
-                    { id: "isha", time: "08:30 م", title: "صلاة العشاء 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10" },
-                    { id: "night", time: "09:00 م", title: "سهرة ترفيهية ممتازة وأفلام عائلية ممتعة 🎬", isTask: false, icon: "fa-gamepad", color: "text-cyan-400", bg: "bg-cyan-400/10" }
+                    { id: "fajr", time: "04:00 ص", title: "صلاة الفجر وقراءة أذكارك 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10", duration: 0.5 },
+                    { id: "quran_memorize", time: "04:30 ص", title: "جلسة حفظ وتلاوة القرآن الكريم 📖", isTask: true, icon: "fa-book-open", color: "text-emerald-400", bg: "bg-emerald-400/10", duration: 1.0 },
+                    { id: "wakeup", time: "12:00 م", title: "الاستيقاظ وبداية يوم جديد سعيد 🍳", isTask: false, icon: "fa-bed", color: "text-indigo-400", bg: "bg-indigo-400/10", duration: 0.5 },
+                    { id: "english", time: "12:30 م", title: "وقت الإنجليزي (قراءة قصة / ممارسة لغوية) 🇬🇧", isTask: true, icon: "fa-language", color: "text-blue-400", bg: "bg-blue-400/10", duration: 0.5 },
+                    { id: "dhuhr", time: "01:00 م", title: "صلاة الظهر 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10", duration: 0.25 },
+                    { id: "dev_session", time: "01:15 م", title: "جلسة برمجة (تصميم شخصيات Steel Pulse) 💻", isTask: true, icon: "fa-code", color: "text-violet-400", bg: "bg-violet-400/10", duration: 2.25 },
+                    { id: "asr", time: "03:30 م", title: "صلاة العصر 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10", duration: 0.25 },
+                    { id: "gaming", time: "03:45 م", title: "غداء ولعب ألعاب أصلية بدون محاكي مع الأصدقاء 🎮", isTask: false, icon: "fa-gamepad", color: "text-cyan-400", bg: "bg-cyan-400/10", duration: 2.0 },
+                    { id: "quran_review", time: "04:30 م", title: "مراجعة ورد القرآن الكريم اليومي 📖", isTask: true, icon: "fa-book-open", color: "text-emerald-400", bg: "bg-emerald-400/10", duration: 1.0 },
+                    { id: "outing_free", time: "06:00 م", title: "خروج خفيف مع الأصحاب أو جلسة رسم وقراءة 🎨", isTask: false, icon: "fa-star", color: "text-yellow-400", bg: "bg-yellow-400/10", duration: 2.5 },
+                    { id: "maghrib", time: "07:00 م", title: "صلاة المغرب 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10", duration: 0.25 },
+                    { id: "isha", time: "08:30 م", title: "صلاة العشاء 🕌", isTask: true, icon: "fa-mosque", color: "text-amber-400", bg: "bg-amber-400/10", duration: 0.25 },
+                    { id: "night", time: "09:00 م", title: "سهرة ترفيهية ممتازة وأفلام عائلية ممتعة 🎬", isTask: false, icon: "fa-gamepad", color: "text-cyan-400", bg: "bg-cyan-400/10", duration: 4.0 }
                 ];
             }
         }
@@ -299,6 +382,54 @@
 
                 currentDate.setDate(currentDate.getDate() + 1);
             }
+        }
+
+        // Feature: Export backup data as JSON file
+        function exportBackupData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
+                progress: userProgress,
+                schedules: customSchedules
+            }));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `Yonis_Summer_2026_Backup_${new Date().toISOString().split('T')[0]}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            triggerToastEffect("تم تصدير ملف النسخة الاحتياطية بنجاح! 💾");
+        }
+
+        // Feature: Trigger File browser for Import
+        function triggerImportInput() {
+            document.getElementById('import-file').click();
+        }
+
+        // Feature: Import backup from JSON file
+        function importBackupData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parsedData = JSON.parse(e.target.result);
+                    if (parsedData.progress || parsedData.schedules) {
+                        userProgress = parsedData.progress || {};
+                        customSchedules = parsedData.schedules || {};
+                        saveToLocalStorage();
+                        renderMonthTabs();
+                        renderDaysGrid();
+                        selectDay(selectedDayId);
+                        triggerToastEffect("تمت استعادة البيانات والتقدم بنجاح! 🚀");
+                    } else {
+                        triggerToastEffect("خطأ: بنية الملف غير صحيحة!");
+                    }
+                } catch (err) {
+                    triggerToastEffect("عذراً، فشل استيراد الملف التالف!");
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = ''; // Reset input element
         }
 
         // Return current active schedule for a day (customized or default)
@@ -330,7 +461,7 @@
                 tab.innerText = m === 4 ? "مايو / يونيو" : MONTHS_AR[m];
                 tab.onclick = () => {
                     selectedMonth = m;
-                    isEditingMode = false;
+                    currentTab = 'schedule';
                     renderMonthTabs();
                     renderDaysGrid();
                 };
@@ -359,24 +490,26 @@
                 const isCompletedAll = totalTasks > 0 && completedTasks.length >= totalTasks;
 
                 let borderStyle = "border-slate-800/80 text-slate-300 hover:border-slate-700";
-                let badgeColor = "bg-slate-800";
                 
-                if (day.type === "tennis") {
+                // Feature 2: Glowing Green style for 100% completed day
+                if (isCompletedAll) {
+                    borderStyle = "completed-glow bg-emerald-950/25 border-emerald-500/50 text-emerald-300 shadow-md";
+                } else if (day.type === "tennis") {
                     borderStyle = "bg-lime-950/5 border-lime-950/60 hover:border-lime-700 text-lime-100";
-                    badgeColor = "bg-lime-500/10 text-lime-400";
                 } else {
                     borderStyle = "bg-indigo-950/5 border-indigo-950/60 hover:border-indigo-700 text-indigo-100";
-                    badgeColor = "bg-indigo-500/10 text-indigo-400";
                 }
 
                 if (isSelected) {
-                    borderStyle = "selected-glow bg-[#131d35] text-white";
+                    borderStyle = isCompletedAll 
+                        ? "border-emerald-400 bg-emerald-900/30 text-white shadow-lg shadow-emerald-400/20" 
+                        : "selected-glow bg-[#131d35] text-white";
                 }
 
                 const dayBtn = document.createElement('button');
                 dayBtn.className = `p-2.5 rounded-2xl border text-center transition-all duration-300 flex flex-col items-center justify-between gap-1 relative ${borderStyle}`;
                 dayBtn.onclick = () => {
-                    isEditingMode = false;
+                    currentTab = 'schedule';
                     selectDay(day.id);
                 };
 
@@ -420,45 +553,96 @@
             const options = { month: 'long', day: 'numeric' };
             const dateArabicStr = day.date.toLocaleDateString('ar-EG', options);
 
-            if (isEditingMode) {
-                renderEditorView(day, daySchedule, panel, dateArabicStr);
+            // Render Header Tabs for Left Side Panel with dynamic chatbot
+            let tabsHtml = `
+                <div class="flex bg-slate-950/60 p-1 rounded-2xl gap-1 border border-slate-900/80 mb-2">
+                    <button onclick="switchPanelTab('schedule')" class="flex-1 py-1.5 rounded-xl font-bold text-xs transition-all ${currentTab === 'schedule' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'}">
+                        <i class="fa-solid fa-list-check ml-1 text-[10px]"></i> الجدول اليومي
+                    </button>
+                    <button onclick="switchPanelTab('ai')" class="flex-1 py-1.5 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1 ${currentTab === 'ai' ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'}">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                        </span>
+                        مساعدك الذكي ⚡
+                    </button>
+                    <button onclick="switchPanelTab('editor')" class="flex-1 py-1.5 rounded-xl font-bold text-xs transition-all ${currentTab === 'editor' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'}">
+                        <i class="fa-solid fa-pen-to-square ml-1 text-[10px]"></i> تعديل يدوي ⚙️
+                    </button>
+                </div>
+            `;
+
+            panel.innerHTML = tabsHtml + `<div id="panel-content-area" class="flex-1 flex flex-col justify-between"></div>`;
+            const contentArea = document.getElementById('panel-content-area');
+
+            if (currentTab === 'editor') {
+                renderEditorView(day, daySchedule, contentArea, dateArabicStr);
+            } else if (currentTab === 'ai') {
+                renderAIView(day, daySchedule, contentArea, dateArabicStr);
             } else {
-                renderStandardView(day, daySchedule, completedList, totalTasks, percentage, panel, dateArabicStr);
+                renderStandardView(day, daySchedule, completedList, totalTasks, percentage, contentArea, dateArabicStr);
             }
         }
 
-        // Render detailed standard tasks list
-        function renderStandardView(day, daySchedule, completedList, totalTasks, percentage, panel, dateArabicStr) {
+        function switchPanelTab(tabName) {
+            currentTab = tabName;
+            if (currentTab === 'editor') {
+                editingScheduleDraft = JSON.parse(JSON.stringify(getScheduleForDay(selectedDayId)));
+            }
+            selectDay(selectedDayId);
+        }
+
+        // Render detailed standard tasks list with custom glowing card enhancements
+        function renderStandardView(day, daySchedule, completedList, totalTasks, percentage, container, dateArabicStr) {
             let scheduleHtml = '';
             
             if (daySchedule.length === 0) {
                 scheduleHtml = `
                     <div class="text-center py-12 text-slate-500 text-xs">
-                        الجدول فارغ اليوم. اضغط على زر التعديل لإضافة المهام الأولى بسهولة!
+                        الجدول فارغ اليوم. اضغط على زر التعديل أو بوابة الذكاء الاصطناعي لتخطيط يومك!
                     </div>
                 `;
             } else {
                 daySchedule.forEach((item, index) => {
                     const isCompleted = item.isTask && completedList.includes(item.id);
                     const isPrayer = item.icon === 'fa-mosque';
+                    const isQuran = item.icon === 'fa-book-open';
+                    const isDumbbell = item.icon === 'fa-dumbbell'; // Detect long gym session
                     
                     let cardStyle = "bg-slate-950/25 border-slate-900/80 hover:bg-slate-950/40";
                     let accentLine = "border-slate-800";
                     
-                    if (isCompleted) {
-                        cardStyle = isPrayer 
-                            ? "bg-emerald-950/10 border-emerald-950/50 hover:bg-emerald-950/15" 
-                            : "bg-blue-950/10 border-blue-950/50 hover:bg-blue-950/15";
-                        accentLine = isPrayer ? "border-emerald-500/50" : "border-blue-500/50";
+                    // Feature implementation: Glow Effect for Dumbbell (Gym & Long Workouts)
+                    if (isDumbbell) {
+                        cardStyle = "bg-rose-950/15 border-rose-500/40 shadow-lg shadow-rose-500/15 hover:bg-rose-950/25 transition-all duration-300";
+                        accentLine = "border-rose-500";
+                    } else if (isCompleted) {
+                        if (isPrayer) {
+                            cardStyle = "bg-emerald-950/10 border-emerald-950/50 hover:bg-emerald-950/15";
+                            accentLine = "border-emerald-500/50";
+                        } else if (isQuran) {
+                            cardStyle = "bg-teal-950/10 border-teal-950/50 hover:bg-teal-950/15";
+                            accentLine = "border-teal-500/50";
+                        } else {
+                            cardStyle = "bg-blue-950/10 border-blue-950/50 hover:bg-blue-950/15";
+                            accentLine = "border-blue-500/50";
+                        }
                     } else if (item.isTask) {
-                        accentLine = "border-indigo-500/30";
+                        accentLine = isQuran ? "border-emerald-500/30" : "border-indigo-500/30";
                     }
 
                     scheduleHtml += `
                         <div class="flex items-center gap-3 p-3 rounded-2xl border border-r-4 ${accentLine} ${cardStyle} transition-all duration-300">
-                            <!-- Time Badge -->
-                            <div class="text-[10px] font-bold px-2.5 py-1 rounded-xl bg-slate-950 text-slate-400 border border-slate-900/80 whitespace-nowrap">
-                                ${item.time}
+                            <!-- Time & Duration Badge -->
+                            <div class="flex flex-col gap-1 items-center">
+                                <div class="text-[10px] font-bold px-2.5 py-1 rounded-xl bg-slate-950 text-slate-400 border border-slate-900/80 whitespace-nowrap">
+                                    ${item.time}
+                                </div>
+                                ${item.duration ? `
+                                    <span class="text-[9px] text-slate-500 font-semibold bg-slate-900/50 px-1.5 py-0.5 rounded-lg border border-slate-950">
+                                        ${item.duration} س
+                                    </span>
+                                ` : ''}
                             </div>
                             
                             <!-- Task Visual Icon -->
@@ -492,9 +676,9 @@
                 });
             }
 
-            panel.innerHTML = `
+            container.innerHTML = `
                 <!-- Panel Header with premium stats visualization -->
-                <div class="flex items-center justify-between gap-4 border-b border-slate-900 pb-4 mb-4">
+                <div class="flex items-center justify-between gap-4 border-b border-slate-900 pb-3 mb-3">
                     <div>
                         <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold border ${day.type === 'tennis' ? 'border-lime-500/20 text-lime-400 bg-lime-500/5' : 'border-indigo-500/20 text-indigo-400 bg-indigo-500/5'}">
                             <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
@@ -519,9 +703,9 @@
                 </div>
 
                 <!-- Fast Actions with micro-design triggers -->
-                <div class="flex gap-2 mb-4">
-                    <button onclick="enableEditingMode()" class="flex-1 py-2 rounded-xl bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-300 font-bold text-xs border border-indigo-500/25 transition-all flex items-center justify-center gap-1.5 shadow-sm">
-                        <i class="fa-solid fa-pen-to-square text-[11px]"></i> تعديل جدول اليوم ليكون أسهل لك
+                <div class="flex gap-2 mb-3">
+                    <button onclick="switchPanelTab('editor')" class="flex-1 py-2 rounded-xl bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-300 font-bold text-xs border border-indigo-500/25 transition-all flex items-center justify-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-pen-to-square text-[11px]"></i> تعديل الجدول يدوياً
                     </button>
                     ${customSchedules[day.id] ? `
                         <button onclick="openConfirmModal('reset-day')" class="px-3 py-2 rounded-xl bg-slate-950 border border-slate-900 text-slate-400 hover:text-slate-200 hover:bg-slate-900 font-bold text-xs transition-all flex items-center justify-center gap-1">
@@ -531,17 +715,20 @@
                 </div>
 
                 <!-- Daily Detailed Scroll Panel -->
-                <div class="flex flex-col gap-2.5 max-h-[350px] overflow-y-auto pl-1">
+                <div class="flex flex-col gap-2.5 max-h-[300px] overflow-y-auto pl-1">
                     ${scheduleHtml}
                 </div>
             `;
         }
 
         // Render simple cards-based custom schedule editor
-        function renderEditorView(day, daySchedule, panel, dateArabicStr) {
+        function renderEditorView(day, daySchedule, container, dateArabicStr) {
             let formRowsHtml = '';
 
             daySchedule.forEach((item, index) => {
+                // Feature 1: Check if this icon supports duration tracking
+                const showDuration = ['fa-code', 'fa-book-open', 'fa-dumbbell', 'fa-baseball'].includes(item.icon);
+
                 formRowsHtml += `
                     <div class="bg-slate-950/45 border border-slate-900/90 rounded-2xl p-3.5 flex flex-col gap-3 relative transition-all duration-200">
                         
@@ -553,15 +740,21 @@
                             </button>
                         </div>
 
-                        <!-- Basic details inputs -->
+                        <!-- Basic details inputs - Fully flexible time, title and duration editing -->
                         <div class="grid grid-cols-12 gap-2">
-                            <input type="text" value="${item.time}" id="edit-time-${index}" placeholder="مثال: 01:00 م" class="col-span-4 bg-slate-900/60 border border-slate-800 text-xs rounded-xl px-2.5 py-2 text-slate-200 focus:outline-none focus:border-indigo-600 font-semibold text-center">
-                            <input type="text" value="${item.title}" id="edit-title-${index}" placeholder="اكتب مسمى النشاط هنا..." class="col-span-8 bg-slate-900/60 border border-slate-800 text-xs rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-indigo-600 font-semibold">
+                            <input type="text" value="${item.time}" id="edit-time-${index}" placeholder="مثال: 05:00 م" class="col-span-3 bg-slate-900/60 border border-slate-800 text-xs rounded-xl px-1.5 py-2 text-slate-200 focus:outline-none focus:border-indigo-600 font-semibold text-center">
+                            <input type="text" value="${item.title}" id="edit-title-${index}" placeholder="اكتب مسمى النشاط هنا..." class="col-span-6 bg-slate-900/60 border border-slate-800 text-xs rounded-xl px-2.5 py-2 text-slate-200 focus:outline-none focus:border-indigo-600 font-semibold">
+                            
+                            <!-- Premium Feature 1 Layout Enhancement: Enable duration input conditionally with opacity scale -->
+                            <div class="col-span-3 flex items-center gap-1 bg-slate-900/60 border border-slate-800 rounded-xl px-2 ${showDuration ? 'opacity-100' : 'opacity-25 pointer-events-none'}" title="${showDuration ? 'المدة الزمنية بالساعات لهذا النشاط' : 'المدة غير مطلوبة لغير أنشطة البرمجة/القرآن/التنس'}">
+                                <input type="number" step="0.25" min="0" value="${item.duration || 1.0}" id="edit-duration-${index}" placeholder="ساعة" class="w-full bg-transparent border-none text-xs text-slate-200 text-center focus:outline-none font-semibold" ${showDuration ? '' : 'disabled'}>
+                                <span class="text-[9px] text-slate-500 whitespace-nowrap">ساعة</span>
+                            </div>
                         </div>
 
                         <!-- Advanced custom parameters & horizontal scrolls -->
                         <div class="flex flex-col gap-2 pt-2 border-t border-slate-900">
-                            <!-- Horizontal scroll to choose icons (Quick, Visual, Simplistic) -->
+                            <!-- Horizontal scroll to choose icons -->
                             <div class="flex flex-col gap-1.5">
                                 <span class="text-[9px] text-slate-400">اختر رمز البند بشكل مباشر:</span>
                                 <div class="flex gap-1 overflow-x-auto pb-1" id="edit-icon-selector-${index}">
@@ -594,29 +787,20 @@
                 `;
             });
 
-            panel.innerHTML = `
-                <!-- Editor header -->
-                <div class="border-b border-slate-900 pb-3 mb-4 flex items-center justify-between">
-                    <div>
-                        <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 text-[9px] font-bold border border-amber-500/10">وضع التعديل البسيط ⚙️</span>
-                        <h3 class="text-base font-black text-white mt-1">تعديل جدول: ${day.dayOfWeekName} (${dateArabicStr})</h3>
-                    </div>
-                    <button onclick="cancelEditingMode()" class="text-xs text-slate-400 hover:text-slate-200">إغاء</button>
-                </div>
-
+            container.innerHTML = `
                 <!-- Form Rows wrapper -->
-                <div id="editor-rows-container" class="flex flex-col gap-3 max-h-[330px] overflow-y-auto pr-1">
+                <div id="editor-rows-container" class="flex flex-col gap-3 max-h-[280px] overflow-y-auto pr-1">
                     ${formRowsHtml}
                 </div>
 
                 <!-- Setup tools & Save controls -->
-                <div class="border-t border-slate-900 pt-3 mt-4 flex flex-col gap-2">
+                <div class="border-t border-slate-900 pt-3 mt-3 flex flex-col gap-2">
                     <button onclick="addNewEditorRow()" class="w-full py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800/60 font-bold text-xs transition-all flex items-center justify-center gap-1.5">
                         <i class="fa-solid fa-circle-plus text-indigo-400"></i> إضافة بند جديد
                     </button>
                     
                     <div class="flex gap-2 mt-1">
-                        <button onclick="cancelEditingMode()" class="flex-1 py-2 rounded-xl bg-slate-950 border border-slate-900 hover:bg-slate-900 text-slate-400 hover:text-slate-200 font-bold text-xs transition-all text-center">
+                        <button onclick="switchPanelTab('schedule')" class="flex-1 py-2 rounded-xl bg-slate-950 border border-slate-900 hover:bg-slate-900 text-slate-400 hover:text-slate-200 font-bold text-xs transition-all text-center">
                             إلغاء التعديلات
                         </button>
                         <button onclick="saveCustomSchedule()" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 font-black text-xs transition-all text-center shadow-md">
@@ -627,20 +811,532 @@
             `;
         }
 
+        // Render Premium AI Conversational Chat Portal Tab
+        function renderAIView(day, daySchedule, container, dateArabicStr) {
+            // Initialize day-specific chat history if not exists (with Time-Aware Greeting Feature)
+            if (!chatHistories[day.id]) {
+                const currentHour = new Date().getHours();
+                let greeting = "";
+                if (currentHour < 12) {
+                    greeting = `صباح الخير والبركة يا يونس يا بطل! ☀️ جاهز لتخطيط يومك ونشاطك الصيفي الممتع؟ أنا مبرمجك الخاص ومساعدك الذكي ⚡. قولي حابب تعدل إيه في جدول النهاردة؟`;
+                } else {
+                    greeting = `مساء الخير والجمال يا ملك! ✨ حابب تظبط إيه في سهرتك وجدولك النهاردة؟ أنا مبرمجك الخاص ومساعدك الذكي ⚡. قولي ظروفك الطارئة (تعب، ضيوف، رغبة في لعب أو سهرة) وهعدلك الدنيا في ثواني!`;
+                }
+                
+                chatHistories[day.id] = [
+                    { 
+                        role: "model", 
+                        text: greeting 
+                    }
+                ];
+            }
+
+            const history = chatHistories[day.id];
+            
+            // Render messages
+            let messagesHtml = '';
+            history.forEach(msg => {
+                const isUser = msg.role === 'user';
+                messagesHtml += `
+                    <div class="flex flex-col ${isUser ? 'items-end' : 'items-start'} msg-appear">
+                        <div class="text-[9px] text-slate-500 mb-0.5 px-1">${isUser ? 'يونس' : 'مساعدك الذكي ⚡'}</div>
+                        <div class="p-3 rounded-2xl text-xs leading-relaxed ${
+                            isUser 
+                            ? 'bg-indigo-600 text-white rounded-tr-none max-w-[85%]' 
+                            : 'bg-slate-950/60 border border-slate-900 text-slate-200 rounded-tl-none max-w-[85%]'
+                        }">
+                            <p>${msg.text}</p>
+                            ${msg.tempScheduleProposed ? `
+                                <div class="mt-2.5 pt-2 border-t border-slate-900 flex flex-col gap-1.5">
+                                    <span class="text-[10px] text-indigo-400 font-bold flex items-center gap-1">
+                                        <i class="fa-solid fa-eye"></i> لقد قمت بتعديل الجدول وتجهيزه لك:
+                                    </span>
+                                    <button onclick="applyAiScheduleDirectly()" class="w-full py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-black text-[11px] transition-all shadow-md flex items-center justify-center gap-1 animate-pulse">
+                                        <i class="fa-solid fa-calendar-check"></i> اعتماد التعديل الطارئ للجدول ⚡
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = `
+                <div class="flex flex-col gap-3 h-full flex-grow">
+                    <!-- Audio Coach Quick Access -->
+                    <div class="flex items-center justify-between bg-slate-950/40 border border-slate-900 rounded-2xl p-2 px-3 shrink-0">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-teal-400 animate-ping"></span>
+                            <span class="text-[10px] font-bold text-slate-300">هل تود الاستماع لكلمة حماسية صوتية؟</span>
+                        </div>
+                        <button onclick="runAICoachTTS()" id="tts-generate-btn" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 text-slate-950 font-extrabold text-[10px] transition-all flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-microphone-lines"></i> استمع للمدرب الصوتى 🔊
+                        </button>
+                    </div>
+
+                    <!-- Audio Player Box if ready -->
+                    <div id="tts-audio-container" class="w-full flex justify-center empty:hidden shrink-0"></div>
+
+                    <!-- Scrollable Chat Area -->
+                    <div id="chat-messages-container" class="flex-1 flex flex-col gap-3 max-h-[190px] overflow-y-auto pr-1 pb-2">
+                        ${messagesHtml}
+                    </div>
+
+                    <!-- Quick Prompt Chips Row (New UX Feature) -->
+                    <div class="flex gap-1.5 overflow-x-auto pb-1 mt-1 shrink-0">
+                        <button onclick="sendQuickPrompt('أنا تعبان النهاردة وعايز جدول خفيف مريح مع الصلوات')" class="bg-slate-900/80 hover:bg-slate-800 border border-slate-800/80 text-[9px] font-bold px-2 py-1 rounded-xl text-slate-300 shrink-0 transition-colors">🚑 تعبان جداً</button>
+                        <button onclick="sendQuickPrompt('عندي مشوار عائلي مفاجئ الصبح وعايز أظبط الوقت')" class="bg-slate-900/80 hover:bg-slate-800 border border-slate-800/80 text-[9px] font-bold px-2 py-1 rounded-xl text-slate-300 shrink-0 transition-colors">🚗 مشوار طارئ</button>
+                        <button onclick="sendQuickPrompt('عايز أسهر النهاردة وألعب مع أصحابي بليل الغي البرمجة')" class="bg-slate-900/80 hover:bg-slate-800 border border-slate-800/80 text-[9px] font-bold px-2 py-1 rounded-xl text-slate-300 shrink-0 transition-colors">🎮 سهرة لعب</button>
+                        <button onclick="sendQuickPrompt('النهاردة نشيط وعايز أركز على البرمجة ومونتاج قناتي بندق')" class="bg-slate-900/80 hover:bg-slate-800 border border-slate-800/80 text-[9px] font-bold px-2 py-1 rounded-xl text-slate-300 shrink-0 transition-colors">💻 تركيز برمجة</button>
+                    </div>
+
+                    <!-- Input message box and send actions -->
+                    <div class="flex gap-2 items-center border-t border-slate-900 pt-2 shrink-0">
+                        <input type="text" id="chat-user-input" placeholder="اكتب ظرفك الطارئ هنا..." 
+                            class="flex-1 bg-slate-950 border border-slate-900 text-xs rounded-xl px-3 py-2.5 text-slate-200 focus:outline-none focus:border-indigo-600 font-semibold"
+                            onkeydown="if(event.key === 'Enter') sendChatMessage()">
+                        <button onclick="sendChatMessage()" class="w-9 h-9 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center transition-all flex-shrink-0">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Auto scroll messages to bottom
+            setTimeout(() => {
+                const box = document.getElementById('chat-messages-container');
+                if (box) box.scrollTop = box.scrollHeight;
+            }, 50);
+        }
+
+        // Helper to send prompt instantly from Quick Chips (Premium UX Feature 1)
+        function sendQuickPrompt(promptText) {
+            const input = document.getElementById('chat-user-input');
+            if (input) {
+                input.value = promptText;
+                sendChatMessage();
+            }
+        }
+
+        // Dynamic element appending helper to prevent focus loss (Bug Fix 2)
+        function appendMessageToDOM(role, text, tempScheduleProposed) {
+            const container = document.getElementById('chat-messages-container');
+            if (!container) return;
+            const isUser = role === 'user';
+            
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex flex-col ${isUser ? 'items-end' : 'items-start'} msg-appear`;
+            msgDiv.innerHTML = `
+                <div class="text-[9px] text-slate-500 mb-0.5 px-1">${isUser ? 'يونس' : 'مساعدك الذكي ⚡'}</div>
+                <div class="p-3 rounded-2xl text-xs leading-relaxed ${
+                    isUser 
+                    ? 'bg-indigo-600 text-white rounded-tr-none max-w-[85%]' 
+                    : 'bg-slate-950/60 border border-slate-900 text-slate-200 rounded-tl-none max-w-[85%]'
+                }">
+                    <p>${text}</p>
+                    ${tempScheduleProposed ? `
+                        <div class="mt-2.5 pt-2 border-t border-slate-900 flex flex-col gap-1.5">
+                            <span class="text-[10px] text-indigo-400 font-bold flex items-center gap-1">
+                                <i class="fa-solid fa-eye"></i> لقد قمت بتعديل الجدول وتجهيزه لك:
+                            </span>
+                            <button onclick="applyAiScheduleDirectly()" class="w-full py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-black text-[11px] transition-all shadow-md flex items-center justify-center gap-1 animate-pulse">
+                                <i class="fa-solid fa-calendar-check"></i> اعتماد التعديل الطارئ للجدول ⚡
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Display typing state in chatbot container with bouncing dots (Bug Fix 2 + Typing Dots Animation)
+        function showTypingIndicator() {
+            const container = document.getElementById('chat-messages-container');
+            if (!container) return;
+            
+            const typingEl = document.createElement('div');
+            typingEl.id = 'chat-typing-state';
+            typingEl.className = 'flex flex-col items-start msg-appear';
+            typingEl.innerHTML = `
+                <div class="text-[9px] text-slate-500 mb-0.5 px-1">مساعدك الذكي ⚡</div>
+                <div class="p-3 rounded-2xl text-xs bg-slate-950/60 border border-slate-900 text-slate-400 rounded-tl-none max-w-[85%] flex flex-col gap-1.5">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-spinner animate-spin text-indigo-400"></i>
+                        <span>يقوم مبرمجك الخاص بدراسة وتعديل جدولك...</span>
+                    </div>
+                    <!-- Premium Typing Dots Animation -->
+                    <div class="flex items-center gap-1 px-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce" style="animation-delay: 0.1s"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce" style="animation-delay: 0.2s"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce" style="animation-delay: 0.3s"></span>
+                    </div>
+                </div>
+            `;
+            container.appendChild(typingEl);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Remove typing indicator from chatbot container
+        function removeTypingIndicator() {
+            const typingEl = document.getElementById('chat-typing-state');
+            if (typingEl) typingEl.remove();
+        }
+
+        // Send chat message and process modifications loop (Includes Bug 1 & 2 Resolvers)
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-user-input');
+            if (!input) return;
+            const txt = input.value.trim();
+            if (!txt) return;
+
+            const dayId = selectedDayId;
+            
+            // Save user message to history array
+            chatHistories[dayId].push({ role: 'user', text: txt });
+
+            // Bug Fix 2: Append user message to DOM instantly without rebuilding the input, preserving keyboard focus!
+            appendMessageToDOM('user', txt, false);
+            input.value = ''; // Clear text area
+            input.focus(); // Re-assign focus immediately
+
+            // Show temporary typing state
+            showTypingIndicator();
+
+            // Offline Check Fallback
+            if (!navigator.onLine) {
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    const errMsg = "عذراً يا بطل! يبدو أنك غير متصل بالإنترنت حالياً. تأكد من اتصال شبكتك لتشغيل الشات بوت أو عدل جدولك يدوياً بضغطة زر!";
+                    chatHistories[dayId].push({ role: 'model', text: errMsg });
+                    appendMessageToDOM('model', errMsg, false);
+                }, 800);
+                return;
+            }
+
+            // Retrieve current schedule state values
+            const currentSchedule = getScheduleForDay(dayId);
+            
+            // Bug Fix 1: Carry over the LATEST proposed/updated schedule draft in history so Gemini edits upon its latest version!
+            let activeProposedScheduleInChat = null;
+            for (let i = chatHistories[dayId].length - 1; i >= 0; i--) {
+                if (chatHistories[dayId][i].proposedSchedule) {
+                    activeProposedScheduleInChat = chatHistories[dayId][i].proposedSchedule;
+                    break; // Retrieve latest one
+                }
+            }
+            const scheduleToSend = activeProposedScheduleInChat || currentSchedule;
+
+            const targetUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const systemPrompt = "أنت المساعد الذكي والمبرمج الخاص للبطل يونس. مهمتك هي الدردشة معه ومساعدته في تعديل جدول يومه الحالي عند حدوث ظروف طارئة (مثل تعب، زيارات، تغيير أوقات).\nسأعطيك مصفوفة الـ JSON للجدول الحالي لليوم، بالإضافة لرسالة يونس.\nتوجيهات صارمة:\n1. حافظ تماماً على الصلوات الخمس في أوقاتها الأساسية (الفجر 04:00 ص، الظهر 01:00 م، العصر 03:30 م، المغرب 08:00 م، العشاء 08:30 م) وورد القرآن الكريم.\n2. عدل الجدول (احذف، أضف، أو عدل مواعيد المهام الأخرى مثل البرمجة، التنس، اللعب) بمرونة لتلائم رغبة يونس وظرفه الطارئ.\n3. رد عليه دائماً بالعامية المصرية المشجعة والودودة جداً.\n4. يجب إرجاع النتيجة كـ JSON كائن (Object) يحتوي على الحقول المطلوبة: 'message' (ردود الشات بالعامية المصرية) و 'updatedSchedule' (مصفوفة الجدول بالكامل بعد تعديلها بناءً على طلب يونس، مع الحفاظ التام على الصلوات والقرآن). إذا لم يطلب يونس تعديل جدول اليوم، اجعل حقل 'updatedSchedule' فارغاً أو غير موجود.";
+            
+            const conversationContext = chatHistories[dayId].slice(-6).map(m => `${m.role === 'user' ? 'يونس' : 'المساعد'}: ${m.text}`).join('\n');
+            
+            const payload = {
+                contents: [{ 
+                    parts: [{ 
+                        text: `الجدول الحالي لليوم بتنسيق JSON: \n${JSON.stringify(scheduleToSend)}\n\nسياق الحوار الأخير:\n${conversationContext}\n\nطلب يونس الأخير: "${txt}"` 
+                    }] 
+                }],
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            "message": { "type": "STRING", "description": "ردك بالعامية المصرية الودودة والمحمسة ليونس" },
+                            "updatedSchedule": {
+                                "type": "ARRAY",
+                                "description": "مصفوفة الجدول بالكامل بعد تعديلها بناءً على رغبة يونس، وإلا تترك فارغة",
+                                "items": {
+                                    type: "OBJECT",
+                                    properties: {
+                                        "time": { "type": "STRING" },
+                                        "title": { "type": "STRING" },
+                                        "isTask": { "type": "BOOLEAN" },
+                                        "icon": { "type": "STRING" },
+                                        "color": { "type": "STRING" },
+                                        "bg": { "type": "STRING" },
+                                        "duration": { "type": "NUMBER", "description": "المدة الزمنية بالساعات كقيمة عشرية رقمية دقيقة مثل 1.5 أو 2.25" }
+                                    },
+                                    "required": ["time", "title", "isTask", "icon", "color", "bg", "duration"]
+                                }
+                            }
+                        },
+                        "required": ["message"]
+                    }
+                },
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                }
+            };
+
+            let success = false;
+            let resultData = null;
+            let attempt = 0;
+
+            while (attempt < 3 && !success) {
+                try {
+                    const response = await fetch(targetUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text) {
+                        resultData = JSON.parse(text);
+                        success = true;
+                    } else {
+                        throw new Error("Empty response");
+                    }
+                } catch (e) {
+                    attempt++;
+                    await new Promise(r => setTimeout(r, 1000 * attempt));
+                }
+            }
+
+            removeTypingIndicator(); // Remove typing loader
+
+            if (success && resultData) {
+                const responseMsg = resultData.message;
+                const updatedSc = resultData.updatedSchedule;
+                
+                let tempProposal = false;
+                if (updatedSc && updatedSc.length > 0) {
+                    aiDraftSchedule = updatedSc; // Assign draft
+                    tempProposal = true;
+                }
+
+                // Push reply with proposed schedule context to resolve Context Window issues (Bug Fix 1)
+                chatHistories[dayId].push({
+                    role: 'model',
+                    text: responseMsg,
+                    tempScheduleProposed: tempProposal,
+                    proposedSchedule: updatedSc // Save contextual schedule proposed
+                });
+
+                // Append model message directly to DOM and preserve focus
+                appendMessageToDOM('model', responseMsg, tempProposal);
+            } else {
+                const errFallback = "عذراً يا بطل! واجهت صعوبة في معالجة طلبك حالياً، يرجى التحقق من صحة مفتاح API والمحاولة من جديد.";
+                chatHistories[dayId].push({ role: 'model', text: errFallback });
+                appendMessageToDOM('model', errFallback, false);
+            }
+
+            input.focus(); // Retain input focus
+        }
+
+        // Apply generated schedule from globally stored draft safely (Bug Fix #1)
+        function applyAiScheduleDirectly() {
+            if (aiDraftSchedule) {
+                applyAiSchedule(aiDraftSchedule);
+                aiDraftSchedule = null;
+            }
+        }
+
+        // Apply generated schedule from draft to persistent customSchedules
+        function applyAiSchedule(schedule) {
+            customSchedules[selectedDayId] = schedule;
+            
+            // Re-align tracking stats lists
+            const activeTasksIds = schedule.filter(s => s.isTask).map(s => s.id);
+            if (userProgress[selectedDayId]) {
+                userProgress[selectedDayId] = userProgress[selectedDayId].filter(tid => activeTasksIds.includes(tid));
+            }
+
+            saveToLocalStorage();
+            currentTab = 'schedule';
+            selectDay(selectedDayId);
+            triggerToastEffect("تم تفعيل جدول الذكاء الاصطناعي لليوم بنجاح! 🪄🚀");
+        }
+
+        // Call Gemini to generate Motivational voice message for Yonis (Egyptian dialect TTS)
+        async function runAICoachTTS() {
+            // Feature 1: Offline check for Coach TTS
+            if (!navigator.onLine) {
+                triggerToastEffect("عذراً! لا يوجد اتصال بالإنترنت لتشغيل المساعد الصوتي 🌐");
+                return;
+            }
+
+            const btn = document.getElementById('tts-generate-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> جار التوليد...`;
+            btn.disabled = true;
+
+            // Gathering actual stats to provide dynamic contextual coaching
+            let totalTasksInSummer = 0;
+            let totalCompletedInSummer = 0;
+            let totalDevHours = 0;
+            let totalQuranHours = 0;
+
+            allDays.forEach(day => {
+                const daySchedule = getScheduleForDay(day.id);
+                const tasks = daySchedule.filter(s => s.isTask);
+                totalTasksInSummer += tasks.length;
+                const dayProgress = userProgress[day.id] || [];
+                totalCompletedInSummer += dayProgress.length;
+
+                // Sum active times for Dev and Quran based on dynamic item duration
+                daySchedule.forEach(item => {
+                    if (item.isTask && dayProgress.includes(item.id)) {
+                        if (item.icon === 'fa-code') {
+                            const d = parseFloat(item.duration);
+                            totalDevHours += (!isNaN(d) && d > 0 ? d : 2.25);
+                        } else if (item.icon === 'fa-book-open') {
+                            const d = parseFloat(item.duration);
+                            totalQuranHours += (!isNaN(d) && d > 0 ? d : 1.0);
+                        }
+                    }
+                });
+            });
+
+            const overallPct = totalTasksInSummer > 0 ? Math.round((totalCompletedInSummer / totalTasksInSummer) * 100) : 0;
+
+            // Call text-to-speech module using gemini-2.5-flash-preview-tts
+            const targetUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+            const promptText = `تحدث بحماس وبلهجة مصرية ودودة جداً وبسيطة قائلاً: يا يونس يا بطل، فخور بيك جداً، انهارده معدل إنجازك الكلي طوال الصيف وصل لـ ${overallPct} في المية، وبرمجت ${totalDevHours.toFixed(1).replace('.0', '')} ساعة، وقضيت مع كتاب ربنا ${totalQuranHours.toFixed(1).replace('.0', '')} ساعة كاملة! الصلاة والورد هما سر قوتك وبركتك يا ملك، استمر وعاش جداً يا بطل!`;
+
+            const payload = {
+                contents: [{ parts: [{ text: promptText }] }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: "Zephyr" } // Zephyr represents a bright energetic tone
+                        }
+                    }
+                }
+            };
+
+            let attempt = 0;
+            let success = false;
+            let audioBase64 = null;
+            let sampleRate = 24000; // default for flash tts is 24000
+
+            while (attempt < 3 && !success) {
+                try {
+                    const response = await fetch(targetUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+                    const part = result?.candidates?.[0]?.content?.parts?.[0];
+                    if (part && part.inlineData?.data) {
+                        audioBase64 = part.inlineData.data;
+                        const mime = part.inlineData.mimeType;
+                        // Extract sample rate if available
+                        const rateMatch = mime.match(/rate=(\d+)/);
+                        if (rateMatch) {
+                            sampleRate = parseInt(rateMatch[1], 10);
+                        }
+                        success = true;
+                    } else {
+                        throw new Error("Invalid audio response returned");
+                    }
+                } catch (e) {
+                    attempt++;
+                    await new Promise(r => setTimeout(r, 1000 * attempt));
+                }
+            }
+
+            if (success && audioBase64) {
+                try {
+                    const pcmData = base64ToArrayBuffer(audioBase64);
+                    const pcm16 = new Int16Array(pcmData);
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+                    
+                    // Create audio element
+                    const container = document.getElementById('tts-audio-container');
+                    container.innerHTML = `
+                        <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-2 rounded-xl w-full max-w-[240px] msg-appear">
+                            <button onclick="playCoachAudio('${audioUrl}')" class="w-8 h-8 rounded-full bg-teal-500 hover:bg-teal-600 text-slate-950 flex items-center justify-center text-xs shadow">
+                                <i class="fa-solid fa-play ml-0.5"></i>
+                            </button>
+                            <span class="text-[10px] text-teal-400 font-bold">اضغط للاستماع لكلمة مدربك!</span>
+                        </div>
+                    `;
+                    
+                    // Auto-play the voice immediately
+                    playCoachAudio(audioUrl);
+                    triggerToastEffect("استمع لتوجيه مدربك الحماسي الآن! 🗣️");
+                } catch (err) {
+                    triggerToastEffect("فشل معالجة الصوت، تأكد من مفتاح الـ API!");
+                }
+            } else {
+                triggerToastEffect("عذراً، فشل توليد الصوت من Gemini API.");
+            }
+
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+
+        // Play WAV sound smoothly
+        function playCoachAudio(url) {
+            const audio = new Audio(url);
+            audio.play();
+        }
+
+        // Conversions and helper binary handlers for raw PCM 16 bit
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function pcmToWav(pcm16Array, sampleRate) {
+            const buffer = new ArrayBuffer(44 + pcm16Array.length * 2);
+            const view = new DataView(buffer);
+
+            /* RIFF identifier */
+            writeString(view, 0, 'RIFF');
+            /* file length */
+            view.setUint32(4, 36 + pcm16Array.length * 2, true);
+            /* RIFF type */
+            writeString(view, 8, 'WAVE');
+            /* format chunk identifier */
+            writeString(view, 12, 'fmt ');
+            /* format chunk length */
+            view.setUint32(16, 16, true);
+            /* sample format (raw) */
+            view.setUint16(20, 1, true);
+            /* channel count */
+            view.setUint16(22, 1, true);
+            /* sample rate */
+            view.setUint32(24, sampleRate, true);
+            /* byte rate (sample rate * block align) */
+            view.setUint32(28, sampleRate * 2, true);
+            /* block align (channel count * bytes per sample) */
+            view.setUint16(32, 2, true);
+            /* bits per sample */
+            view.setUint16(34, 16, true);
+            /* data chunk identifier */
+            writeString(view, 36, 'data');
+            /* chunk length */
+            view.setUint32(40, pcm16Array.length * 2, true);
+
+            // Write PCM audio samples
+            for (let i = 0; i < pcm16Array.length; i++) {
+                view.setInt16(44 + i * 2, pcm16Array[i], true);
+            }
+
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+        // Helper to write string bytes
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
         // Temporary tracking array during editing phase
         let editingScheduleDraft = [];
-
-        function enableEditingMode() {
-            isEditingMode = true;
-            // Load clone to avoid instant alterations
-            editingScheduleDraft = JSON.parse(JSON.stringify(getScheduleForDay(selectedDayId)));
-            selectDay(selectedDayId);
-        }
-
-        function cancelEditingMode() {
-            isEditingMode = false;
-            selectDay(selectedDayId);
-        }
 
         // Apply selected icon options preset on Row
         function setRowIconPreset(rowIndex, iconClass) {
@@ -654,7 +1350,7 @@
             selectDay(selectedDayId);
         }
 
-        // Add a new raw schedule row
+        // Add a new raw schedule row with dynamic default duration
         function addNewEditorRow() {
             syncEditorDraftFromDOM();
             editingScheduleDraft.push({
@@ -664,7 +1360,8 @@
                 isTask: true,
                 icon: "fa-star",
                 color: "text-yellow-400",
-                bg: "bg-yellow-400/10"
+                bg: "bg-yellow-400/10",
+                duration: 1.0 // Default dynamic duration to 1 hour
             });
             selectDay(selectedDayId);
             
@@ -681,16 +1378,22 @@
             selectDay(selectedDayId);
         }
 
-        // Gather all visual inputs before refreshing layouts
+        // Gather all visual inputs before refreshing layouts (Bug Fix 1: Properly update and sync item duration from DOM)
         function syncEditorDraftFromDOM() {
             editingScheduleDraft.forEach((item, index) => {
                 const timeInput = document.getElementById(`edit-time-${index}`);
                 const titleInput = document.getElementById(`edit-title-${index}`);
                 const isTaskInput = document.getElementById(`edit-istask-${index}`);
+                const durationInput = document.getElementById(`edit-duration-${index}`);
 
                 if (timeInput) item.time = timeInput.value;
                 if (titleInput) item.title = titleInput.value;
                 if (isTaskInput) item.isTask = isTaskInput.checked;
+                
+                // Properly parse and synchronize the actual item duration to sustain correct statistics computation
+                if (durationInput) {
+                    item.duration = parseFloat(durationInput.value) || 1.0;
+                }
             });
         }
 
@@ -710,48 +1413,101 @@
             }
 
             saveToLocalStorage();
-            isEditingMode = false;
+            currentTab = 'schedule';
             selectDay(selectedDayId);
             triggerToastEffect("تم تعديل وحفظ جدول اليوم بنجاح يا بطل! 🚀");
         }
 
-        // Toggle daily checklist items with motivational remarks
+        // Toggle daily checklist items with motivational remarks and celebration checks
         function toggleTask(dayId, taskId) {
             if (!userProgress[dayId]) {
                 userProgress[dayId] = [];
             }
 
             const taskIndex = userProgress[dayId].indexOf(taskId);
+            let justCompletedAll = false;
+
             if (taskIndex > -1) {
                 userProgress[dayId].splice(taskIndex, 1);
             } else {
                 userProgress[dayId].push(taskId);
-                triggerToastEffect(getRandomMotivationalPhrase());
+                
+                // Calculate completion state before updating stats to check for celebration
+                const daySchedule = getScheduleForDay(dayId);
+                const totalTasks = daySchedule.filter(s => s.isTask).length;
+                const completedList = userProgress[dayId] || [];
+                if (totalTasks > 0 && completedList.length === totalTasks) {
+                    justCompletedAll = true;
+                } else {
+                    triggerToastEffect(getRandomMotivationalPhrase());
+                }
             }
 
             saveToLocalStorage();
             selectDay(dayId);
+
+            // Trigger visual glow & emoji explosion celebration!
+            if (justCompletedAll) {
+                triggerCompletionCelebration();
+            }
         }
 
-        // Reset current day back to default configurations
+        // Premium celebration visual effects for 100% Day completion
+        function triggerCompletionCelebration() {
+            const panel = document.getElementById('day-detail-panel');
+            if (!panel) return;
+
+            // Apply glow glow effect
+            panel.classList.add('completed-glow', 'scale-[1.01]');
+            triggerToastEffect("يا مـلـك! لـقـد أتـمـمـت جـمـيـع مـهـام الـيـوم بـنـجـاح! 🏆👑🔥");
+
+            // Float up emojis
+            const emojis = ['🏆', '👑', '🔥', '✨', '⭐', '🎾', '💻', '🕌'];
+            for (let i = 0; i < 20; i++) {
+                const el = document.createElement('div');
+                el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                el.className = 'absolute text-xl pointer-events-none transition-all duration-1000 ease-out z-50 select-none';
+                el.style.left = Math.random() * 85 + 5 + '%';
+                el.style.bottom = '10%';
+                el.style.opacity = '1';
+                panel.appendChild(el);
+
+                setTimeout(() => {
+                    el.style.transform = `translateY(-${Math.random() * 180 + 120}px) scale(${Math.random() * 0.5 + 1})`;
+                    el.style.opacity = '0';
+                }, 50);
+
+                setTimeout(() => { el.remove(); }, 1050);
+            }
+
+            // Remove scale zoom
+            setTimeout(() => {
+                panel.classList.remove('scale-[1.01]');
+            }, 1000);
+        }
+
+        // Reset current day back to default configurations (Edge Case Bug Fix: Clean Chat History)
         function resetSelectedDay() {
             delete customSchedules[selectedDayId];
             delete userProgress[selectedDayId];
+            delete chatHistories[selectedDayId]; // Clear chatbot context history for selected day smoothly!
             saveToLocalStorage();
-            isEditingMode = false;
+            currentTab = 'schedule';
             selectDay(selectedDayId);
-            triggerToastEffect("تمت استعادة الجدول الافتراضي الأصلي 🌟");
+            triggerToastEffect("تمت استعادة الجدول الافتراضي الأصلي وتصفير المحادثة 🌟");
         }
 
         // Reset all application data smoothly
         function resetAllData() {
             userProgress = {};
             customSchedules = {};
+            chatHistories = {};
             saveToLocalStorage();
             
             // Back to initial active date May 31
             selectedDayId = '2026-05-31';
             selectedMonth = 4;
+            currentTab = 'schedule';
             
             renderMonthTabs();
             renderDaysGrid();
@@ -771,7 +1527,7 @@
                 descEl.innerText = "سيقوم هذا بمسح كل جدول قمت بتعديله وكل نسب الصلوات والإنجاز التي تتبعتها طوال الصيف والبدء مجدداً. هل أنت متأكد؟";
             } else if (action === 'reset-day') {
                 titleEl.innerText = "الرجوع للجدول الافتراضي؟";
-                descEl.innerText = "سيتم التراجع عن تعديلاتك اليومية لهذا اليوم واسترجاع المهام والتنس والكمبيوتر الافتراضية. هل أنت متأكد؟";
+                descEl.innerText = "سيتم التراجع عن تعديلاتك اليومية وتصفير المحادثة لهذا اليوم واسترجاع المهام الافتراضية. هل أنت متأكد؟";
             }
 
             modal.classList.remove('hidden');
@@ -809,7 +1565,7 @@
         function getRandomMotivationalPhrase() {
             const phrases = [
                 "عاش يا بطل! التزام مذهل اليوم 🌟",
-                "أحسنت يا يونس! صلاتك هي بركة يومك وسر تفوقك 🔥",
+                "أحسنت يا يونس! صلاتك وقرآنك هما سر نجاحك وبركتك 🔥",
                 "فخورين بك جداً! استمر بهذا الإنجاز الملكي 👑",
                 "أقوى صيف على الإطلاق! الالتزام مستمر بنجاح 🚀",
                 "كل علامة صح تضعها تصنع مستقبلك العظيم! 💪"
@@ -817,32 +1573,60 @@
             return phrases[Math.floor(Math.random() * phrases.length)];
         }
 
-        // Advanced calculations for total progress and prayer streaks
+        // Advanced calculations for total progress, prayer streaks, coding and quran hours (Includes Duration Protection fallback)
         function updateOverallStats() {
             let totalTasksInSummer = 0;
             let totalCompletedInSummer = 0;
+            
+            // Counters for Coding and Quran Hours (With robust float matching protection)
+            let totalDevHours = 0;
+            let totalQuranHours = 0;
 
             allDays.forEach(day => {
                 const daySchedule = getScheduleForDay(day.id);
                 const tasks = daySchedule.filter(s => s.isTask);
                 totalTasksInSummer += tasks.length;
                 
-                if (userProgress[day.id]) {
-                    totalCompletedInSummer += userProgress[day.id].length;
-                }
+                const dayProgress = userProgress[day.id] || [];
+                totalCompletedInSummer += dayProgress.length;
+
+                // Sum active times for Dev and Quran based on item duration safely
+                daySchedule.forEach(item => {
+                    if (item.isTask && dayProgress.includes(item.id)) {
+                        if (item.icon === 'fa-code') {
+                            const d = parseFloat(item.duration);
+                            // Fallback to standard float value if AI duration gets messy/NaN
+                            totalDevHours += (!isNaN(d) && d > 0 ? d : 2.25);
+                        } else if (item.icon === 'fa-book-open') {
+                            const d = parseFloat(item.duration);
+                            totalQuranHours += (!isNaN(d) && d > 0 ? d : 1.0);
+                        }
+                    }
+                });
             });
 
+            // Update DOM counters
             const overallPct = totalTasksInSummer > 0 ? Math.round((totalCompletedInSummer / totalTasksInSummer) * 100) : 0;
             document.getElementById('total-progress-bar').innerText = `${overallPct}% معدل إنجاز`;
+            document.getElementById('dev-hours-counter').innerText = `${totalDevHours.toFixed(1).replace('.0', '')} ساعة`;
+            document.getElementById('quran-hours-counter').innerText = `${totalQuranHours.toFixed(1).replace('.0', '')} ساعة`;
 
-            // Calculate consecutive active prayer streak days where all daily prayers were checked
+            // Calculate consecutive active prayer streak days ONLY UP TO CURRENT REAL DATE (Bug Fix #2)
             let maxStreak = 0;
             let currentStreak = 0;
             
+            // Format today's date in YYYY-MM-DD format
+            const todayStr = new Date().toISOString().split('T')[0];
             const sortedDays = [...allDays].sort((a,b) => new Date(a.id) - new Date(b.id));
 
             for (let i = 0; i < sortedDays.length; i++) {
                 const dayId = sortedDays[i].id;
+                
+                // Stop evaluation streak on future days beyond today (Logic Bug Fix)
+                if (dayId > todayStr) {
+                    break;
+                }
+
                 const progress = userProgress[dayId] || [];
                 const daySchedule = getScheduleForDay(dayId);
                 
